@@ -46,10 +46,10 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         #region Public methods
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
-
             var content = await output.GetChildContentAsync();
             output.Content.AppendHtml(content);
             output.TagName = OutputTag;
+            output.Attributes.SetAttribute("role", "group");
             AppendDefaultCssClass(output);
         }
         #endregion
