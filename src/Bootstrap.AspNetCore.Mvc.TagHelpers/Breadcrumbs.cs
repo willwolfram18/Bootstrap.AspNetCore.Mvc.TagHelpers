@@ -1,0 +1,80 @@
+﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Bootstrap.AspNetCore.Mvc.TagHelpers
+{
+    [HtmlTargetElement(TAG)]
+    [RestrictChildren(Crumb.TAG)]
+    public class Breadcrumbs : BootstrapTagHelperBase
+    {
+        #region Properties
+        #region Public properties
+        public const string TAG = Global.TAG_PREFIX + "breadcrumb";
+
+        public override string CssClass
+        {
+            get
+            {
+                return "breadcrumb";
+            }
+        }
+
+        public override string OutputTag { get; set; } = "ol";
+        #endregion
+        #endregion
+
+        #region Methods
+        #region Public methods
+        public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
+        {
+            output.TagName = OutputTag;
+            output.TagMode = TagMode.StartTagAndEndTag;
+            var content = await output.GetChildContentAsync();
+            output.Content.AppendHtml(content);
+            AppendDefaultCssClass(output);
+        }
+        #endregion
+        #endregion
+    }
+
+    [HtmlTargetElement(TAG, ParentTag = Breadcrumbs.TAG)]
+    public class Crumb : BootstrapTagHelperBase
+    {
+        #region Properties
+        #region Public properties
+        public const string TAG = Global.TAG_PREFIX + "crumb";
+        public const string ACTIVE_ATTRIBUTE_NAME = "bs-active";
+
+        [HtmlAttributeName(ACTIVE_ATTRIBUTE_NAME)]
+        public bool IsActive { get; set; } = false;
+
+        public override string CssClass
+        {
+            get
+            {
+                return (IsActive ? "active" : "");
+            }
+        }
+
+        [HtmlAttributeNotBound]
+        public override string OutputTag { get; set; } = "li";
+        #endregion
+        #endregion
+
+        #region Methods
+        #region Public methods
+        public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
+        {
+            output.TagName = OutputTag;
+            output.TagMode = TagMode.StartTagAndEndTag;
+            var content = await output.GetChildContentAsync();
+            output.Content.AppendHtml(content);
+            AppendDefaultCssClass(output);
+        }
+        #endregion
+        #endregion
+    }
+}

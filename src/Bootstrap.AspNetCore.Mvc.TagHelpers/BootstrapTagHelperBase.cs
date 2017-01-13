@@ -6,6 +6,7 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
     {
         #region Properties
         #region Public properties
+        [HtmlAttributeNotBound]
         public abstract string CssClass { get; }
 
         [HtmlAttributeName(OUTPUT_TAG_ATTRIBUTE_NAME)]
@@ -20,6 +21,10 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
 
         public void AppendDefaultCssClass(TagHelperOutput output)
         {
+            if (string.IsNullOrWhiteSpace(CssClass))
+            {
+                return;
+            }
             string cssClass = CssClass;
             if (output.Attributes.ContainsName("class"))
             {
