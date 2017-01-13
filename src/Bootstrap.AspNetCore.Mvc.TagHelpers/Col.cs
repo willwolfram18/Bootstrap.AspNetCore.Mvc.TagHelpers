@@ -47,7 +47,7 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         #endregion
 
         #region Private properties
-        private const string COLUMN_WIDTH_ATTRIBUTE_PREFIX = "width-";
+        private const string COLUMN_WIDTH_ATTRIBUTE_PREFIX = "col-";
         private const string COLUMN_CSS_CLASS_PATTERN = @"col-(xs|sm|md|lg)-\d{1,2}";
         #endregion
         #endregion

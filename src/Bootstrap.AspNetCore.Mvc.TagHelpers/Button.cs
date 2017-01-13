@@ -42,7 +42,7 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         public ButtonSize ButtonSize { get; set; }
 
         [HtmlAttributeName(BUTTON_OUTPUT_TAG_ATTRIBUTE_NAME)]
-        public string _OutputTag { get; }
+        public string _OutputTag { get; set; }
 
         public override string CssClass
         {
