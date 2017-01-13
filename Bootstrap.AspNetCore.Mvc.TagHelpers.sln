@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Bootstrap.AspNetCore.Mvc.TagHelpers", "src\Bootstrap.AspNetCore.Mvc.TagHelpers\Bootstrap.AspNetCore.Mvc.TagHelpers.xproj", "{7CCE1DE8-15C3-4EB4-AC52-231300C808D3}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Bootstrap.AspNetCore.Mvc.TagHelpers.Demo", "src\Bootstrap.AspNetCore.Mvc.TagHelpers.Demo\Bootstrap.AspNetCore.Mvc.TagHelpers.Demo.xproj", "{DEAB555F-3E87-4D6E-B906-3B4CBEFF8AC6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,11 +24,16 @@ Global
 		{7CCE1DE8-15C3-4EB4-AC52-231300C808D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7CCE1DE8-15C3-4EB4-AC52-231300C808D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7CCE1DE8-15C3-4EB4-AC52-231300C808D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEAB555F-3E87-4D6E-B906-3B4CBEFF8AC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEAB555F-3E87-4D6E-B906-3B4CBEFF8AC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEAB555F-3E87-4D6E-B906-3B4CBEFF8AC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEAB555F-3E87-4D6E-B906-3B4CBEFF8AC6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{7CCE1DE8-15C3-4EB4-AC52-231300C808D3} = {06DE1261-4D62-4CB5-8BDF-53CEC8B4B11D}
+		{DEAB555F-3E87-4D6E-B906-3B4CBEFF8AC6} = {06DE1261-4D62-4CB5-8BDF-53CEC8B4B11D}
 	EndGlobalSection
 EndGlobal
