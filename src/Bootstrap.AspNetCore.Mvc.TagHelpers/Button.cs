@@ -19,10 +19,10 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
 
     public enum ButtonSize
     {
-        ExtraSmall,
-        Small,
-        Normal,
-        Large,
+        xs,
+        sm,
+        normal,
+        lg,
     }
 
     [HtmlTargetElement(Global.TAG_PREFIX + "btn", Attributes = REQUIRED_ATTRIBUTE_NAMES)]
@@ -30,49 +30,33 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
     {
         #region Properties
         #region Public properties
-        public const string REQUIRED_ATTRIBUTE_NAMES = BUTTON_TYPE_ATTRIBUTE_NAME + "," + BUTTON_OUTPUT_TAG_ATTRIBUTE_NAME;
+        public const string REQUIRED_ATTRIBUTE_NAMES = BUTTON_TYPE_ATTRIBUTE_NAME + "," + OUTPUT_TAG_ATTRIBUTE_NAME;
         public const string BUTTON_TYPE_ATTRIBUTE_NAME = "btn-type";
-        public const string BUTTON_OUTPUT_TAG_ATTRIBUTE_NAME = "btn-tag";
         public const string BUTTON_SIZE_ATTRIBUTE_NAME = "btn-size";
 
         [HtmlAttributeName(BUTTON_TYPE_ATTRIBUTE_NAME)]
         public ButtonType ButtonType { get; set; }
 
         [HtmlAttributeName(BUTTON_SIZE_ATTRIBUTE_NAME)]
-        public ButtonSize ButtonSize { get; set; }
-
-        [HtmlAttributeName(BUTTON_OUTPUT_TAG_ATTRIBUTE_NAME)]
-        public string _OutputTag { get; set; }
+        public ButtonSize ButtonSize { get; set; } = ButtonSize.normal;
 
         public override string CssClass
         {
             get
             {
-                string cssClass = $"btn btn-{ButtonType}";
+                string cssClass = $"btn btn-{ButtonType.ToString().ToLower()}";
                 switch (ButtonSize)
                 {
-                    case ButtonSize.ExtraSmall:
-                        cssClass += " btn-xs";
+                    case ButtonSize.xs:
+                    case ButtonSize.sm:
+                    case ButtonSize.lg:
+                        cssClass += $" btn-{ButtonSize}";
                         break;
-                    case ButtonSize.Small:
-                        cssClass += " btn-sm";
-                        break;
-                    case ButtonSize.Large:
-                        cssClass += " btn-lg";
-                        break;
-                    case ButtonSize.Normal:
+                    case ButtonSize.normal:
                     default:
                         break;
                 }
                 return cssClass;
-            }
-        }
-
-        public override string OutputTag
-        {
-            get
-            {
-                return _OutputTag;
             }
         }
         #endregion

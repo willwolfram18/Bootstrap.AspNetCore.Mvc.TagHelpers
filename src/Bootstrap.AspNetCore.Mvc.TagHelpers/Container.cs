@@ -14,14 +14,6 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
             }
         }
 
-        public override string OutputTag
-        {
-            get
-            {
-                return "div";
-            }
-        }
-
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
             var content = await output.GetChildContentAsync();

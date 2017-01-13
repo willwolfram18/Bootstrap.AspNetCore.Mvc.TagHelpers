@@ -36,14 +36,6 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
                 return string.Join(" ", cssClasses);
             }
         }
-
-        public override string OutputTag
-        {
-            get
-            {
-                return "div";
-            }
-        }
         #endregion
 
         #region Private properties

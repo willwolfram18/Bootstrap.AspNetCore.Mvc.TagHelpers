@@ -32,14 +32,6 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
                 return $"alert alert-{AlertType.ToString().ToLower()}";
             }
         }
-
-        public override string OutputTag
-        {
-            get
-            {
-                return "div";
-            }
-        }
         #endregion
         #endregion
 

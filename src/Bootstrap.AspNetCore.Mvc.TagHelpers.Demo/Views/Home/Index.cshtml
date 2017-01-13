@@ -106,10 +106,15 @@
             <li><a href="https://go.microsoft.com/fwlink/?LinkID=398609">Publish to Microsoft Azure Web Apps</a></li>
         </ul>
     </div>
-    <bs-col-uniform col-width="6">
+    <bs-col-uniform col-width="6" bs-output-tag="span">
         Look at me, I am a column!
         <bs-alert-dismissble alert-type="Info">
-            This can be dismissed!
+            This can be dismissed!<br />
+            <bs-btn bs-output-tag="input" btn-type="Primary" type="submit" value="Submit">
+            </bs-btn>
+            <bs-btn bs-output-tag="a" btn-type="Danger">
+                Click me!
+            </bs-btn>
         </bs-alert-dismissble>
     </bs-col-uniform>
 </div>

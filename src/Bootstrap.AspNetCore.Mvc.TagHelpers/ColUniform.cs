@@ -28,14 +28,6 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
                 return $"col-xs-{ColumnWidth} col-sm-{ColumnWidth} col-md-{ColumnWidth} col-lg-{ColumnWidth}";
             }
         }
-
-        public override string OutputTag
-        {
-            get
-            {
-                return "div";
-            }
-        }
         #endregion
 
         #region Private properties
