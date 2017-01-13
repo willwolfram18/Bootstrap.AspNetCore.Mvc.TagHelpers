@@ -26,27 +26,28 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         lg,
     }
 
-    [HtmlTargetElement(Global.TAG_PREFIX + "btn", Attributes = REQUIRED_ATTRIBUTE_NAMES)]
+    [HtmlTargetElement(TAG, Attributes = REQUIRED_ATTRIBUTE_NAMES)]
     public class Button : BootstrapTagHelperBase
     {
         #region Properties
         #region Public properties
-        public const string REQUIRED_ATTRIBUTE_NAMES = OUTPUT_TAG_ATTRIBUTE_NAME + "," + BUTTON_TYPE_ATTRIBUTE_NAME;
-        public const string BUTTON_TYPE_ATTRIBUTE_NAME = "btn-type";
-        public const string BUTTON_SIZE_ATTRIBUTE_NAME = "btn-size";
-        public const string BUTTON_ACTIVE_ATTRIBUTE_NAME = "btn-active";
-        public const string BUTTON_DISABLED_ATTRIBUTE_NAME = "btn-disabled";
+        public const string TAG = Global.TAG_PREFIX + "btn";
+        public const string REQUIRED_ATTRIBUTE_NAMES = OUTPUT_TAG_ATTRIBUTE_NAME + "," + TYPE_ATTRIBUTE_NAME;
+        public const string TYPE_ATTRIBUTE_NAME = "btn-type";
+        public const string SIZE_ATTRIBUTE_NAME = "btn-size";
+        public const string ACTIVE_ATTRIBUTE_NAME = "btn-active";
+        public const string DISABLED_ATTRIBUTE_NAME = "btn-disabled";
 
-        [HtmlAttributeName(BUTTON_TYPE_ATTRIBUTE_NAME)]
+        [HtmlAttributeName(TYPE_ATTRIBUTE_NAME)]
         public ButtonType ButtonType { get; set; }
 
-        [HtmlAttributeName(BUTTON_SIZE_ATTRIBUTE_NAME)]
+        [HtmlAttributeName(SIZE_ATTRIBUTE_NAME)]
         public ButtonSize ButtonSize { get; set; } = ButtonSize.normal;
 
-        [HtmlAttributeName(BUTTON_ACTIVE_ATTRIBUTE_NAME)]
+        [HtmlAttributeName(ACTIVE_ATTRIBUTE_NAME)]
         public bool IsActive { get; set; } = false;
 
-        [HtmlAttributeName(BUTTON_DISABLED_ATTRIBUTE_NAME)]
+        [HtmlAttributeName(DISABLED_ATTRIBUTE_NAME)]
         public bool IsDisabled { get; set; } = false;
 
         public override string CssClass
@@ -83,11 +84,21 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         #endregion
         #endregion
 
+        #region Methods
+        #region Public methods
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
             var content = await output.GetChildContentAsync();
             output.Content.AppendHtml(content);
             output.TagName = OutputTag;
+            IncludeExtraAttributes(output);
+            AppendDefaultCssClass(output);
+        }
+        #endregion
+
+        #region Private methods
+        private void IncludeExtraAttributes(TagHelperOutput output)
+        {
             if (IsActive)
             {
                 output.Attributes.SetAttribute("aria-pressed", "true");
@@ -96,7 +107,8 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
             {
                 output.Attributes.SetAttribute("disabled", "disabled");
             }
-            AppendDefaultCssClass(output);
         }
+        #endregion
+        #endregion
     }
 }
