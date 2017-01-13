@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Bootstrap.AspNetCore.Mvc.TagHelpers
 {
-    public enum ButtonType
+    public enum ButtonVariation
     {
         Default,
         Primary,
@@ -32,14 +32,14 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         #region Properties
         #region Public properties
         public const string TAG = Global.TAG_PREFIX + "btn";
-        public const string REQUIRED_ATTRIBUTE_NAMES = OUTPUT_TAG_ATTRIBUTE_NAME + "," + TYPE_ATTRIBUTE_NAME;
-        public const string TYPE_ATTRIBUTE_NAME = "btn-type";
+        public const string REQUIRED_ATTRIBUTE_NAMES = OUTPUT_TAG_ATTRIBUTE_NAME + "," + VARIATION_ATTRIBUTE_NAME;
+        public const string VARIATION_ATTRIBUTE_NAME = "btn-variation";
         public const string SIZE_ATTRIBUTE_NAME = "btn-size";
         public const string ACTIVE_ATTRIBUTE_NAME = "btn-active";
         public const string DISABLED_ATTRIBUTE_NAME = "btn-disabled";
 
-        [HtmlAttributeName(TYPE_ATTRIBUTE_NAME)]
-        public ButtonType ButtonType { get; set; }
+        [HtmlAttributeName(VARIATION_ATTRIBUTE_NAME)]
+        public ButtonVariation ButtonVariation { get; set; }
 
         [HtmlAttributeName(SIZE_ATTRIBUTE_NAME)]
         public ButtonSize ButtonSize { get; set; } = ButtonSize.normal;
@@ -54,7 +54,7 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         {
             get
             {
-                StringBuilder cssClass = new StringBuilder($"btn btn-{ButtonType.ToString().ToLower()}");
+                StringBuilder cssClass = new StringBuilder($"btn btn-{ButtonVariation.ToString().ToLower()}");
                 switch (ButtonSize)
                 {
                     case ButtonSize.xs:
@@ -89,7 +89,7 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
             var content = await output.GetChildContentAsync();
-            output.Content.AppendHtml(content);
+            output.Content.SetHtmlContent(content);
             output.TagName = OutputTag;
             output.TagMode = TagMode.StartTagAndEndTag;
             IncludeExtraAttributes(output);

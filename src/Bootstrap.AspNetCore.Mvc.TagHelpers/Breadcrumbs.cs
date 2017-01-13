@@ -33,7 +33,7 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
             output.TagName = OutputTag;
             output.TagMode = TagMode.StartTagAndEndTag;
             var content = await output.GetChildContentAsync();
-            output.Content.AppendHtml(content);
+            output.Content.SetHtmlContent(content);
             AppendDefaultCssClass(output);
         }
         #endregion
@@ -71,7 +71,7 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
             output.TagName = OutputTag;
             output.TagMode = TagMode.StartTagAndEndTag;
             var content = await output.GetChildContentAsync();
-            output.Content.AppendHtml(content);
+            output.Content.SetHtmlContent(content);
             AppendDefaultCssClass(output);
         }
         #endregion
