@@ -51,6 +51,7 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
             var content = await output.GetChildContentAsync();
             output.Content.AppendHtml(content);
             output.TagName = OutputTag;
+            output.TagMode = TagMode.StartTagAndEndTag;
             RemoveExistingColumnWidths(output);
             AppendDefaultCssClass(output);
         }
