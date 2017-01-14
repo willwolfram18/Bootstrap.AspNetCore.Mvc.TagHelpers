@@ -38,10 +38,8 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
             string subtextTemplate = GetHeaderSubtext();
             string headerTextTemplate = $"<h1>{HeaderText}{subtextTemplate}</h1>";
             output.Content.SetHtmlContent(headerTextTemplate);
-            output.TagName = OutputTag;
             output.TagMode = TagMode.StartTagAndEndTag;
-            AppendDefaultCssClass(output);
-            return Task.CompletedTask;
+            return base.ProcessAsync(context, output);
         }
 
 
