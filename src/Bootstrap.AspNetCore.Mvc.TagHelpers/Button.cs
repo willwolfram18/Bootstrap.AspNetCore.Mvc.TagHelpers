@@ -31,7 +31,7 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
     {
         #region Properties
         #region Public properties
-        public const string TAG = Global.TAG_PREFIX + "btn";
+        public const string TAG = Global.PREFIX + "btn";
         public const string REQUIRED_ATTRIBUTE_NAMES = OUTPUT_TAG_ATTRIBUTE_NAME + "," + TYPE_ATTRIBUTE_NAME;
         public const string TYPE_ATTRIBUTE_NAME = "btn-type";
         public const string SIZE_ATTRIBUTE_NAME = "btn-size";

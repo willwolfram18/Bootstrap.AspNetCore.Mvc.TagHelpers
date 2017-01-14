@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Bootstrap.AspNetCore.Mvc.TagHelpers
 {
-    [HtmlTargetElement(Global.TAG_PREFIX + "col")]
+    [HtmlTargetElement(Global.PREFIX + "col")]
     public class Col : BootstrapTagHelperBase
     {
         #region Properties

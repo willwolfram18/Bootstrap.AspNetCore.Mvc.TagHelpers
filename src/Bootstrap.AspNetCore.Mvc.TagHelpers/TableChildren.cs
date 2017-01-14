@@ -23,7 +23,7 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
     {
         #region Properties
         #region Public Properties
-        public const string VARIATION_ATTRIBUTE_NAME = Global.TAG_PREFIX + "variation";
+        public const string VARIATION_ATTRIBUTE_NAME = Global.PREFIX + "variation";
 
         [HtmlAttributeNotBound]
         public override string CssClass
@@ -49,7 +49,7 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         public TableRowVariation RowVariation { get; set; }
 
         [HtmlAttributeNotBound]
-        public override string OutputTag { get; set; };
+        public override string OutputTag { get; set; }
         #endregion
         #endregion
 

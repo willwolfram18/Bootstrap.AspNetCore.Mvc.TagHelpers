@@ -178,5 +178,23 @@
                 </td>
             </tr>
         </bs-table>
+        <bs-table-responsive>
+            @if (true)
+            {
+            <bs-table table-striped="true">
+                @for (int i = 0; i < 5; i++)
+                {
+                    <tr>
+                        <td>
+                            @i
+                        </td>
+                        <td>
+                            My @i data goes here
+                        </td>
+                    </tr>
+                }
+            </bs-table>
+            }
+        </bs-table-responsive>
     </bs-col-uniform>
 </bs-row>

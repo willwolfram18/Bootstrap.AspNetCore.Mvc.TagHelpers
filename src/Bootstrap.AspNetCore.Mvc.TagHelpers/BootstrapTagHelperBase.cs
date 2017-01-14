@@ -23,7 +23,7 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         #endregion
 
         #region Protected properties
-        protected const string OUTPUT_TAG_ATTRIBUTE_NAME = Global.TAG_PREFIX + "output-tag";
+        protected const string OUTPUT_TAG_ATTRIBUTE_NAME = Global.PREFIX + "output-tag";
         #endregion
         #endregion
 

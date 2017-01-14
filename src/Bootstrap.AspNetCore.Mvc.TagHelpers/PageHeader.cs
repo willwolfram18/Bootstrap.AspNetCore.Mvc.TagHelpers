@@ -11,7 +11,7 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
     {
         #region Properties
         #region Public properties
-        public const string TAG = Global.TAG_PREFIX + "page-header";
+        public const string TAG = Global.PREFIX + "page-header";
         public const string TEXT_ATTRIBUTE_NAME = "page-header-text";
         public const string SUBTEXT_ATTRIBUTE_NAME = "page-header-subtext";
 

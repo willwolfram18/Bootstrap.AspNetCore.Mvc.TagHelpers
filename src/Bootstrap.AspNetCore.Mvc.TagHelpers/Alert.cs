@@ -15,7 +15,7 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         Danger,
     }
 
-    [HtmlTargetElement(Global.TAG_PREFIX + "alert", Attributes = ALERT_TYPE_ATTRIBUTE_NAME)]
+    [HtmlTargetElement(Global.PREFIX + "alert", Attributes = ALERT_TYPE_ATTRIBUTE_NAME)]
     public class Alert : BootstrapTagHelperBase
     {
         #region Properties

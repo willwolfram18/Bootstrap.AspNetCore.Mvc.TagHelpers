@@ -2,7 +2,7 @@
 
 namespace Bootstrap.AspNetCore.Mvc.TagHelpers
 {
-    [HtmlTargetElement(Global.TAG_PREFIX + "container-fluid")]
+    [HtmlTargetElement(Global.PREFIX + "container-fluid")]
     public class ContainerFluid : Container
     {
         public override string CssClass

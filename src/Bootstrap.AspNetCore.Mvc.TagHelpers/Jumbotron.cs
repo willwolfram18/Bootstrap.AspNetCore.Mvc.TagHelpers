@@ -11,7 +11,7 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
     {
         #region Properties
         #region Public properties
-        public const string TAG = Global.TAG_PREFIX + "jumbotron";
+        public const string TAG = Global.PREFIX + "jumbotron";
 
         public override string CssClass
         {

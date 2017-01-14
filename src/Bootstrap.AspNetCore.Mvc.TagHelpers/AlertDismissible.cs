@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Bootstrap.AspNetCore.Mvc.TagHelpers
 {
-    [HtmlTargetElement(Global.TAG_PREFIX + "alert-dismissble")]
+    [HtmlTargetElement(Global.PREFIX + "alert-dismissble")]
     public class AlertDismissible : Alert
     {
         public override string CssClass

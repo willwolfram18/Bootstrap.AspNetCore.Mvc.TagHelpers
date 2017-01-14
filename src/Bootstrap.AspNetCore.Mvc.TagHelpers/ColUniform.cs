@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Bootstrap.AspNetCore.Mvc.TagHelpers
 {
-    [HtmlTargetElement(Global.TAG_PREFIX + "col-uniform", Attributes = COLUMN_WIDTH_ATTRIBUTE)]
+    [HtmlTargetElement(Global.PREFIX + "col-uniform", Attributes = COLUMN_WIDTH_ATTRIBUTE)]
     public class ColUniform : BootstrapTagHelperBase
     {
         #region Properties

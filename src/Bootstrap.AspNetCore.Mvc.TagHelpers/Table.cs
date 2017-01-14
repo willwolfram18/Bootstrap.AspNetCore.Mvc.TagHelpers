@@ -8,12 +8,11 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
 {
 
     [HtmlTargetElement(TAG)]
-    [RestrictChildren("tr", "thead", "tbody")]
     public class Table : BootstrapTagHelperBase
     {
         #region Properties
         #region Public Properties
-        public const string TAG = Global.TAG_PREFIX + "table";
+        public const string TAG = Global.PREFIX + "table";
         public const string HOVER_ATTRIBUTE_NAME = "table-hover";
         public const string STIPED_ATTRIBUTE_NAME = "table-striped";
         public const string BORDERED_ATTRIBUTE_NAME = "table-bordered";

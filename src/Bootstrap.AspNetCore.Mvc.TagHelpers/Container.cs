@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Bootstrap.AspNetCore.Mvc.TagHelpers
 {
-    [HtmlTargetElement(Global.TAG_PREFIX + "container")]
+    [HtmlTargetElement(Global.PREFIX + "container")]
     public class Container : BootstrapTagHelperBase
     {
         public override string CssClass
