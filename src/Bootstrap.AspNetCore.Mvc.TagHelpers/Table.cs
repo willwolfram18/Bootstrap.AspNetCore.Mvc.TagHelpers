@@ -8,6 +8,7 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
 {
 
     [HtmlTargetElement(TAG)]
+    [RestrictChildren("tr", "thead", "tbody")]
     public class Table : BootstrapTagHelperBase
     {
         #region Properties
