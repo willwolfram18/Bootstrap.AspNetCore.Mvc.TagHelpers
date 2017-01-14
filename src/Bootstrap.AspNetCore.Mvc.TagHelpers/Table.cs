@@ -44,16 +44,16 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         }
 
         [HtmlAttributeName(HOVER_ATTRIBUTE_NAME)]
-        public bool IsHoverTable { get; set; }
+        public bool IsHoverTable { get; set; } = false;
 
         [HtmlAttributeName(STIPED_ATTRIBUTE_NAME)]
-        public bool IsStriped { get; set; }
+        public bool IsStriped { get; set; } = false;
 
         [HtmlAttributeName(BORDERED_ATTRIBUTE_NAME)]
-        public bool IsBordered { get; set; }
+        public bool IsBordered { get; set; } = false;
 
         [HtmlAttributeName(CONDENSED_ATTRIBUTE_NAME)]
-        public bool IsCondensed { get; set; }
+        public bool IsCondensed { get; set; } = false;
 
         [HtmlAttributeNotBound]
         public override string OutputTag {get; set;} = "table";
