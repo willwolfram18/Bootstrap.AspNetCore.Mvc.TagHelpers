@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Bootstrap.AspNetCore.Mvc.TagHelpers
 {
-    [HtmlTargetElement(Global.TAG_PREFIX + "col")]
+    [HtmlTargetElement(Global.PREFIX + "col")]
     public class Col : BootstrapTagHelperBase
     {
         #region Properties
@@ -50,10 +50,9 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         {
             var content = await output.GetChildContentAsync();
             output.Content.AppendHtml(content);
-            output.TagName = OutputTag;
             output.TagMode = TagMode.StartTagAndEndTag;
             RemoveExistingColumnWidths(output);
-            AppendDefaultCssClass(output);
+            await base.ProcessAsync(context, output);
         }
         #endregion
 

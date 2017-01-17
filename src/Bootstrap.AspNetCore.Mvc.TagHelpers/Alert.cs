@@ -15,7 +15,7 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         Danger,
     }
 
-    [HtmlTargetElement(Global.TAG_PREFIX + "alert", Attributes = ALERT_VARIATION_ATTRIBUTE_NAME)]
+    [HtmlTargetElement(Global.PREFIX + "alert", Attributes = ALERT_VARIATION_ATTRIBUTE_NAME)]
     public class Alert : BootstrapTagHelperBase
     {
         #region Properties
@@ -41,10 +41,9 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         {
             var content = await output.GetChildContentAsync();
             output.Content.AppendHtml(content);
-            output.TagName = OutputTag;
             output.TagMode = TagMode.StartTagAndEndTag;
             output.Attributes.SetAttribute("role", "alert");
-            AppendDefaultCssClass(output);
+            await base.ProcessAsync(context, output);
         }
         #endregion
         #endregion

@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 namespace Bootstrap.AspNetCore.Mvc.TagHelpers
 {
     [HtmlTargetElement(TAG)]
-    [RestrictChildren(ButtonGroup.TAG)]
     public class ButtonToolbar : BootstrapTagHelperBase
     {
         #region Properties
         #region Public properties
-        public const string TAG = Global.TAG_PREFIX + "btn-toolbar";
+        public const string TAG = Global.PREFIX + "btn-toolbar";
 
         public override string CssClass
         {
@@ -30,10 +29,9 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         {
             var content = await output.GetChildContentAsync();
             output.Content.AppendHtml(content);
-            output.TagName = OutputTag;
             output.TagMode = TagMode.StartTagAndEndTag;
             output.Attributes.SetAttribute("role", "toolbar");
-            AppendDefaultCssClass(output);
+            await base.ProcessAsync(context, output);
         }
         #endregion
         #endregion

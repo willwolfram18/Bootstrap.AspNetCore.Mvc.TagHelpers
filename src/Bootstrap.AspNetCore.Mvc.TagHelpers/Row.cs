@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bootstrap.AspNetCore.Mvc.TagHelpers
 {
-    [HtmlTargetElement(Global.TAG_PREFIX + "row")]
+    [HtmlTargetElement(Global.PREFIX + "row")]
     public class Row : BootstrapTagHelperBase
     {
         public override string CssClass
@@ -21,9 +21,8 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         {
             var content = await output.GetChildContentAsync();
             output.Content.AppendHtml(content);
-            output.TagName = OutputTag;
             output.TagMode = TagMode.StartTagAndEndTag;
-            AppendDefaultCssClass(output);
+            await base.ProcessAsync(context, output);
         }
     }
 }

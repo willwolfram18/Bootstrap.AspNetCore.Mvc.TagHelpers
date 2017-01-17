@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Bootstrap.AspNetCore.Mvc.TagHelpers
 {
@@ -11,15 +13,29 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
 
         [HtmlAttributeName(OUTPUT_TAG_ATTRIBUTE_NAME)]
         public virtual string OutputTag { get; set; } = "div";
+
+        string IBootstrapTagHelper.CssClass
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
         #endregion
 
         #region Protected properties
-        protected const string OUTPUT_TAG_ATTRIBUTE_NAME = Global.TAG_PREFIX + "output-tag";
+        protected const string OUTPUT_TAG_ATTRIBUTE_NAME = Global.PREFIX + "output-tag";
         #endregion
         #endregion
 
+        public override Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
+        {
+            output.TagName = OutputTag;
+            AppendDefaultCssClass(output);
+            return Task.CompletedTask;
+        }
 
-        public void AppendDefaultCssClass(TagHelperOutput output)
+        protected void AppendDefaultCssClass(TagHelperOutput output)
         {
             if (string.IsNullOrWhiteSpace(CssClass))
             {
@@ -31,6 +47,11 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
                 cssClass += " " + output.Attributes["class"].Value.ToString();
             }
             output.Attributes.SetAttribute("class", cssClass);
+        }
+
+        void IBootstrapTagHelper.AppendDefaultCssClass(TagHelperOutput output)
+        {
+            throw new NotImplementedException();
         }
     }
 }

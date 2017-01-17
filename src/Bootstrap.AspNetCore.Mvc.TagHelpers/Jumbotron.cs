@@ -11,7 +11,7 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
     {
         #region Properties
         #region Public properties
-        public const string TAG = Global.TAG_PREFIX + "jumbotron";
+        public const string TAG = Global.PREFIX + "jumbotron";
 
         public override string CssClass
         {
@@ -29,9 +29,8 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         {
             var content = await output.GetChildContentAsync();
             output.Content.AppendHtml(content);
-            output.TagName = OutputTag;
             output.TagMode = TagMode.StartTagAndEndTag;
-            AppendDefaultCssClass(output);
+            await base.ProcessAsync(context, output);
         }
         #endregion
         #endregion

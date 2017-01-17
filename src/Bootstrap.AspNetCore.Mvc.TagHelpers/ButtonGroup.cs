@@ -9,12 +9,11 @@ using System.Threading.Tasks;
 namespace Bootstrap.AspNetCore.Mvc.TagHelpers
 {
     [HtmlTargetElement(TAG)]
-    [RestrictChildren(Button.TAG)]
     public class ButtonGroup : BootstrapTagHelperBase
     {
         #region Properties
         #region Public properties
-        public const string TAG = Global.TAG_PREFIX + "btn-group";
+        public const string TAG = Global.PREFIX + "btn-group";
         public const string GROUP_SIZE_ATTRIBUTE_NAME = "btn-group-size";
 
         [HtmlAttributeName(GROUP_SIZE_ATTRIBUTE_NAME)]
@@ -48,10 +47,9 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         {
             var content = await output.GetChildContentAsync();
             output.Content.AppendHtml(content);
-            output.TagName = OutputTag;
             output.TagMode = TagMode.StartTagAndEndTag;
             output.Attributes.SetAttribute("role", "group");
-            AppendDefaultCssClass(output);
+            await base.ProcessAsync(context, output);
         }
         #endregion
         #endregion
