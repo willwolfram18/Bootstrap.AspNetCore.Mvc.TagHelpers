@@ -6,6 +6,13 @@ using System.Threading.Tasks;
 
 namespace Bootstrap.AspNetCore.Mvc.TagHelpers
 {
+    public enum ModalSize
+    {
+        sm,
+        normal,
+        lg,
+    }
+
     [HtmlTargetElement(TAG)]
     public class Modal : BootstrapTagHelperBase
     {
@@ -13,17 +20,30 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         #region Public properties
         public const string TAG = Global.PREFIX + "modal";
         public const string TITLE_ATTRIBUTE_NAME = "modal-title";
+        public const string SIZE_ATTRIBUTE_NAME = "modal-size";
+        public const string ANIMATION_ATTRIBUTE_NAME = "modal-animation";
 
         public override string CssClass
         {
             get
             {
-                return "modal fade";
+                List<string> cssClasses = new List<string> { "modal" };
+                if (Animation)
+                {
+                    cssClasses.Add("fade");
+                }
+                return string.Join(" ", cssClasses);
             }
         }
 
         [HtmlAttributeName(TITLE_ATTRIBUTE_NAME)]
         public string Title { get; set; }
+
+        [HtmlAttributeName(SIZE_ATTRIBUTE_NAME)]
+        public ModalSize Size { get; set; } = ModalSize.normal;
+
+        [HtmlAttributeName(ANIMATION_ATTRIBUTE_NAME)]
+        public bool Animation { get; set; } = true;
         #endregion
         #endregion
 
@@ -34,13 +54,29 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
             await base.ProcessAsync(context, output);
             output.TagMode = TagMode.StartTagAndEndTag;
             output.Attributes.SetAttribute("role", "dialog");
-            output.Content.AppendHtml("<div class='modal-dialog' role='document'>");
+            output.Content.AppendHtml(string.Format("<div class='{0}' role='document'>", ModalDialogClass()));
             await AppendModalContent(context, output);
             output.Content.AppendHtml("</div>"); // close modal-dialog
         }
         #endregion
 
         #region Private properties
+        private string ModalDialogClass()
+        {
+            List<string> cssClasses = new List<string> { "modal-dialog" };
+            switch (Size)
+            {
+                case ModalSize.sm:
+                case ModalSize.lg:
+                    cssClasses.Add($"modal-{Size}");
+                    break;
+                case ModalSize.normal:
+                default:
+                    break;
+            }
+            return string.Join(" ", cssClasses);
+        }
+
         private async Task AppendModalContent(TagHelperContext context, TagHelperOutput output)
         {
             var childContent = output.GetChildContentAsync();
