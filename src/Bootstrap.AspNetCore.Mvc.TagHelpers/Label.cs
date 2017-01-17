@@ -21,7 +21,7 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
     {
         #region Properties
         #region Public properties
-        public const string TAG = Global.TAG_PREFIX + "label";
+        public const string TAG = Global.PREFIX + "label";
         public const string VARIATION_ATTRIBUTE_NAME = "label-variation";
 
         public override string CssClass

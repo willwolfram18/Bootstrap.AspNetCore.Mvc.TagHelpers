@@ -11,7 +11,7 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
     {
         #region Properties
         #region Public properties
-        public const string TAG = Global.TAG_PREFIX + "badge";
+        public const string TAG = Global.PREFIX + "badge";
         public const string VALUE_ATTRIBUTE_NAME = "badge-value";
 
         public override string CssClass

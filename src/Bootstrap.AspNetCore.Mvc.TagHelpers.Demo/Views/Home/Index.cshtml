@@ -74,7 +74,6 @@
     </a>
 </div>
 
-
 <bs-row>
     <bs-col-uniform col-width="3">
         <bs-page-header page-header-text="Hello" bs-output-tag="span" />
@@ -207,3 +206,19 @@
         </bs-table-responsive>
     </bs-col-uniform>
 </bs-row>
+
+<bs-modal id="WithOutHeader">
+    <bs-modal-body>
+        Hello, world!
+    </bs-modal-body>
+    <bs-modal-footer>
+        <bs-btn bs-output-tag="button" btn-variation="Primary" data-dismiss="modal">
+            Close
+        </bs-btn>
+    </bs-modal-footer>
+</bs-modal>
+<bs-modal id="WithHeader" modal-title="The other one">
+    <bs-modal-body>
+        I am the other modal
+    </bs-modal-body>
+</bs-modal>

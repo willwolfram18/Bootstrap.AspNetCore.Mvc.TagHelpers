@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 namespace Bootstrap.AspNetCore.Mvc.TagHelpers
 {
     [HtmlTargetElement(TAG)]
-    [RestrictChildren(Crumb.TAG)]
     public class Breadcrumbs : BootstrapTagHelperBase
     {
         #region Properties
         #region Public properties
-        public const string TAG = Global.TAG_PREFIX + "breadcrumb";
+        public const string TAG = Global.PREFIX + "breadcrumb";
 
         public override string CssClass
         {
@@ -45,7 +44,7 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
     {
         #region Properties
         #region Public properties
-        public const string TAG = Global.TAG_PREFIX + "crumb";
+        public const string TAG = Global.PREFIX + "crumb";
         public const string ACTIVE_ATTRIBUTE_NAME = "bs-active";
 
         [HtmlAttributeName(ACTIVE_ATTRIBUTE_NAME)]
