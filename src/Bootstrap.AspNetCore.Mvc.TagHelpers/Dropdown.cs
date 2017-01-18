@@ -25,6 +25,7 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         #region Public Properties
         public const string TAG = Global.PREFIX + "dropdown";
         public const string TEXT_ATTRIBUTE_NAME = "dropdown-text";
+        public const string RIGHT_ALIGN_ATTRIBUTE_NAME = "dropdown-right-align";
 
         public override string CssClass
         {
@@ -36,6 +37,9 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
 
         [HtmlAttributeName(TEXT_ATTRIBUTE_NAME)]
         public string DropdownText { get; set; }
+
+        [HtmlAttributeName(RIGHT_ALIGN_ATTRIBUTE_NAME)]
+        public bool IsMenuRightAligned { get; set; } = false;
         #endregion
 
         #region Private Properties
@@ -76,6 +80,10 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         {
             TagBuilder dropdownMenu = new TagBuilder("ul");
             dropdownMenu.AddCssClass("dropdown-menu");
+            if (IsMenuRightAligned)
+            {
+                dropdownMenu.AddCssClass("dropdown-menu-right");
+            }
             foreach (var dropdownItem in _dropdownContext.DropdownItems)
             {
                 dropdownMenu.InnerHtml.AppendHtml(dropdownItem);
