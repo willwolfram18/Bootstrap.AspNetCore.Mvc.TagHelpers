@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Bootstrap.AspNetCore.Mvc.TagHelpers
@@ -50,6 +51,37 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
             context.Items.Add(_dropdownContext.GetType(), _dropdownContext);
 
             var childContent = await output.GetChildContentAsync();
+            output.TagMode = TagMode.StartTagAndEndTag;
+
+            output.Content.AppendHtml(DropdownButton());
+            output.Content.AppendHtml(DropdownItems());
+        }
+        #endregion
+
+        #region Private methods
+        private IHtmlContent DropdownButton()
+        {
+            TagBuilder button = new TagBuilder("button");
+            button.AddCssClass("btn btn-default dropdown-toggle");
+            button.Attributes.Add("type", "button");
+            button.Attributes.Add("data-toggle", "dropdown");
+            button.Attributes.Add("aria-haspopup", "true");
+            button.Attributes.Add("aria-expanded", "true");
+            button.InnerHtml.SetHtmlContent($"{DropdownText} <span class='caret'></span>");
+
+            return button;
+        }
+
+        private IHtmlContent DropdownItems()
+        {
+            TagBuilder dropdownMenu = new TagBuilder("ul");
+            dropdownMenu.AddCssClass("dropdown-menu");
+            foreach (var dropdownItem in _dropdownContext.DropdownItems)
+            {
+                dropdownMenu.InnerHtml.AppendHtml(dropdownItem);
+            }
+
+            return dropdownMenu;
         }
         #endregion
         #endregion
@@ -110,27 +142,48 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         [HtmlAttributeNotBound]
         public override string OutputTag { get; set; } = "li";
         #endregion
+
+        #region Private properties
+        private TagBuilder _item;
+        #endregion
         #endregion
 
         #region Methods
         #region Public methods
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
-            await base.ProcessAsync(context, output);
-
             DropdownContext dropdownContext = context.Items[typeof(DropdownContext)] as DropdownContext;
+
+            _item = new TagBuilder(OutputTag);
+            AppendAttributes(output.Attributes);
+            await SetItemContent(output);
+            dropdownContext.DropdownItems.Add(_item);
+
+            output.SuppressOutput();
+        }
+        #endregion
+
+        #region Private methods
+        private void AppendAttributes(TagHelperAttributeList attributes)
+        {
+            _item.AddCssClass(CssClass);
+            foreach (var attribute in attributes)
+            {
+                _item.Attributes.Add(attribute.Name, attribute.Value.ToString());
+            }
+        }
+        private async Task SetItemContent(TagHelperOutput output)
+        {
             if (ItemType == DropdownItemType.divider)
             {
-                output.Attributes.SetAttribute("role", "separator");
-                output.Content.SetHtmlContent("");
+                _item.Attributes.Add("role", "separator");
+                _item.InnerHtml.SetHtmlContent("");
             }
             else
             {
                 var childContent = await output.GetChildContentAsync();
-                output.Content.SetHtmlContent(childContent);
+                _item.InnerHtml.SetHtmlContent(childContent);
             }
-            dropdownContext.DropdownItems.Add(output);
-            output.SuppressOutput();
         }
         #endregion
         #endregion

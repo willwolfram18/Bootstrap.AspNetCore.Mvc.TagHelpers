@@ -225,12 +225,38 @@
         </bs-nav>
     </bs-col-uniform>
     <bs-col-uniform col-width="6">
-        <bs-dropdown dropdown-text="Test">
-            <bs-dropdown-item>
-                Item 1
+        <bs-dropdown dropdown-text="Test dropdown">
+            <bs-dropdown-item dropdown-item-type="header">
+                Dropdown header
             </bs-dropdown-item>
             <bs-dropdown-item>
-                Item 2
+                <a href="#">
+                    Action
+                </a>
+            </bs-dropdown-item>
+            <bs-dropdown-item dropdown-item-active="true">
+                <a href="#">
+                    Another Action
+                </a>
+            </bs-dropdown-item>
+            <bs-dropdown-item dropdown-item-disabled="true">
+                <a href="#">
+                    Yet Another Action
+                </a>
+            </bs-dropdown-item>
+            <bs-dropdown-item dropdown-item-type="header">
+                Dropdown header
+            </bs-dropdown-item>
+            <bs-dropdown-item dropdown-item-active="true" dropdown-item-disabled="true">
+                <a href="#">
+                    Something else
+                </a>
+            </bs-dropdown-item>
+            <bs-dropdown-item dropdown-item-type="divider" />
+            <bs-dropdown-item>
+                <a href="#">
+                    Separated link
+                </a>
             </bs-dropdown-item>
         </bs-dropdown>
     </bs-col-uniform>
