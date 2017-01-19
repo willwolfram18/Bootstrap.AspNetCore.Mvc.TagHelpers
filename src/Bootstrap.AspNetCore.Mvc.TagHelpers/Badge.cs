@@ -16,32 +16,38 @@ using System.Threading.Tasks;
 
 namespace Bootstrap.AspNetCore.Mvc.TagHelpers
 {
-    [HtmlTargetElement(TAG)]
-    public class ButtonToolbar : BootstrapTagHelperBase
+    [HtmlTargetElement(TAG, Attributes = VALUE_ATTRIBUTE_NAME, TagStructure = TagStructure.WithoutEndTag)]
+    public class Badge : BootstrapTagHelperBase
     {
         #region Properties
         #region Public properties
-        public const string TAG = Global.PREFIX + "btn-toolbar";
+        public const string TAG = Global.PREFIX + "badge";
+        public const string VALUE_ATTRIBUTE_NAME = "badge-value";
 
         public override string CssClass
         {
             get
             {
-                return "btn-toolbar";
+                return "badge";
             }
         }
+
+        [HtmlAttributeName(VALUE_ATTRIBUTE_NAME)]
+        public string Value { get; set; }
+
+        public override string OutputTag { get; set; } = "span";
         #endregion
         #endregion
 
         #region Methods
         #region Public methods
-        public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
+        public override Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
-            var content = await output.GetChildContentAsync();
-            output.Content.AppendHtml(content);
+            output.TagName = OutputTag;
             output.TagMode = TagMode.StartTagAndEndTag;
-            output.Attributes.SetAttribute("role", "toolbar");
-            await base.ProcessAsync(context, output);
+            output.Content.SetContent(Value);
+            AppendDefaultCssClass(output);
+            return Task.CompletedTask;
         }
         #endregion
         #endregion

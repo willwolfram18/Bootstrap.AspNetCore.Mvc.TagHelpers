@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2016 Billy Wolfington
  *
  * This software may be modified and distributed under the terms
@@ -8,29 +8,30 @@
  *
  */
 
+using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Bootstrap.AspNetCore.Mvc.TagHelpers
 {
     [HtmlTargetElement(TAG)]
-    public class TableResponsive : BootstrapTagHelperBase
+    public class Dropup : Dropdown
     {
-        #region Properties
-        #region Public Properties
-        public const string TAG = Global.PREFIX + "table-responsive";
+        public const string TAG = Global.PREFIX + "dropup";
 
         public override string CssClass
         {
             get
             {
-                return "table-responsive";
+                return "dropup";
             }
         }
-        #endregion
-        #endregion
+    }
+
+    [HtmlTargetElement(TAG, ParentTag = Dropup.TAG)]
+    public class DropupItem : DropdownItem
+    {
     }
 }

@@ -16,20 +16,36 @@ using System.Threading.Tasks;
 
 namespace Bootstrap.AspNetCore.Mvc.TagHelpers
 {
-    [HtmlTargetElement(TAG)]
-    public class ButtonToolbar : BootstrapTagHelperBase
+    public enum LabelVariation
+    {
+        Default,
+        Primary,
+        Success,
+        Info,
+        Warning,
+        Danger
+    }
+
+    [HtmlTargetElement(TAG, Attributes = VARIATION_ATTRIBUTE_NAME)]
+    public class Label : BootstrapTagHelperBase
     {
         #region Properties
         #region Public properties
-        public const string TAG = Global.PREFIX + "btn-toolbar";
+        public const string TAG = Global.PREFIX + "label";
+        public const string VARIATION_ATTRIBUTE_NAME = "label-variation";
 
         public override string CssClass
         {
             get
             {
-                return "btn-toolbar";
+                return $"label label-{LabelVariation.ToString().ToLower()}";
             }
         }
+
+        [HtmlAttributeName(VARIATION_ATTRIBUTE_NAME)]
+        public LabelVariation LabelVariation { get; set; }
+
+        public override string OutputTag { get; set; } = "span";
         #endregion
         #endregion
 
@@ -38,10 +54,10 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
             var content = await output.GetChildContentAsync();
-            output.Content.AppendHtml(content);
+            output.TagName = OutputTag;
             output.TagMode = TagMode.StartTagAndEndTag;
-            output.Attributes.SetAttribute("role", "toolbar");
-            await base.ProcessAsync(context, output);
+            output.Content.SetHtmlContent(content);
+            AppendDefaultCssClass(output);
         }
         #endregion
         #endregion
