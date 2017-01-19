@@ -1,5 +1,16 @@
 @{ ViewData["Title"] = "Home Page"; }
 
+<bs-breadcrumb output-tag="ul">
+    <bs-crumb>
+        <a href="#">Home</a>
+    </bs-crumb>
+    <bs-crumb bs-active="true">
+        Index
+    </bs-crumb>
+</bs-breadcrumb>
+<bs-jumbotron>
+    Hello world!
+</bs-jumbotron>
 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
     <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -107,33 +118,93 @@
     </bs-col-uniform>
     <bs-col-uniform col-width="6" bs-output-tag="span">
         Look at me, I am a column!
-        <bs-alert-dismissble alert-type="Info">
+        <bs-alert-dismissble alert-variation="Info">
             This can be dismissed!<br />
         </bs-alert-dismissble>
-        <bs-btn bs-output-tag="button" btn-type="Default" btn-disabled="true">
+        <bs-btn bs-output-tag="button" btn-variation="Default" btn-disabled="true">
             Disabled &lt;button&gt;
         </bs-btn>
-        <bs-btn bs-output-tag="a" btn-type="Info" btn-disabled="true">
+        <bs-btn bs-output-tag="a" btn-variation="Info" btn-disabled="true">
             Disabled &lt;a&gt;
         </bs-btn>
         <bs-btn-toolbar>
             <bs-btn-group>
-                <bs-btn bs-output-tag="div" btn-type="Default">
+                <bs-btn bs-output-tag="div" btn-variation="Default">
                     1
                 </bs-btn>
-                <bs-btn bs-output-tag="div" btn-type="Primary">
+                <bs-btn bs-output-tag="div" btn-variation="Primary">
                     2
                 </bs-btn>
+                <bs-dropdown dropdown-text="Nested dropdown">
+                    <bs-dropdown-item>
+                        <a href="#">
+                            Action
+                        </a>
+                    </bs-dropdown-item>
+                    <bs-dropdown-item>
+                        <a href="#">
+                            Another action
+                        </a>
+                    </bs-dropdown-item>
+                </bs-dropdown>
             </bs-btn-group>
-            <bs-btn-group btn-group-size="lg">
-                <bs-btn bs-output-tag="div" btn-type="Warning">
+            <bs-btn-group btn-group-size="lg" class="pull-right">
+                <bs-btn bs-output-tag="div" btn-variation="Warning">
                     3
                 </bs-btn>
-                <bs-btn bs-output-tag="div" btn-type="Danger">
+                <bs-btn bs-output-tag="div" btn-variation="Danger">
                     4
                 </bs-btn>
+                <bs-dropup dropdown-text="Right button" dropdown-right-align="true">
+                    <bs-dropdown-item>
+                        <a href="#">
+                            Yup
+                        </a>
+                    </bs-dropdown-item>
+                    <bs-dropdown-item>
+                        <a href="#">
+                            Nope
+                        </a>
+                    </bs-dropdown-item>
+                </bs-dropup>
             </bs-btn-group>
         </bs-btn-toolbar>
+        <br />
+        <bs-btn-group bs-output-tag="div" btn-group-vertical="true">
+            <bs-btn bs-output-tag="div" btn-variation="Default">
+                Button 1
+            </bs-btn>
+            <bs-btn bs-output-tag="div" btn-variation="Default">
+                Button 2
+            </bs-btn>
+            <bs-dropdown dropdown-text="Dropdown">
+                <bs-dropdown-item>
+                    <a href="#">
+                        Action
+                    </a>
+                </bs-dropdown-item>
+                <bs-dropdown-item>
+                    <a href="#">
+                        Other Action
+                    </a>
+                </bs-dropdown-item>
+            </bs-dropdown>
+            <bs-btn bs-output-tag="div" btn-variation="Default">
+                Button 3
+            </bs-btn>
+            <bs-dropup dropdown-text="Dropup">
+                <bs-dropdown-item>
+                    <a href="#">
+                        Action
+                    </a>
+                </bs-dropdown-item>
+                <bs-dropdown-item>
+                    <a href="#">
+                        Other Action
+                    </a>
+                </bs-dropdown-item>
+            </bs-dropup>
+        </bs-btn-group>
     </bs-col-uniform>
     <bs-col-uniform col-width="6">
         <bs-table table-striped="true" table-bordered="true">
@@ -194,4 +265,121 @@
             </bs-table>
         </bs-table-responsive>
     </bs-col-uniform>
+    <bs-col-uniform col-width="6">
+        <bs-nav nav-type="pills">
+            <bs-nav-item nav-item-active="true">
+                <a href="#">
+                    Home
+                </a>
+            </bs-nav-item>
+            <bs-nav-item nav-item-disabled="true">
+                <a href="#">
+                    About
+                </a>
+            </bs-nav-item>
+            <bs-nav-item nav-item-active="true" nav-item-disabled="true">
+                <a href="#">
+                    Contact
+                </a>
+            </bs-nav-item>
+        </bs-nav>
+    </bs-col-uniform>
+    <bs-col-uniform col-width="6">
+        <bs-dropdown dropdown-text="Test dropdown">
+            <bs-dropdown-item dropdown-item-type="header">
+                Dropdown header
+            </bs-dropdown-item>
+            <bs-dropdown-item>
+                <a href="#">
+                    Action
+                </a>
+            </bs-dropdown-item>
+            <bs-dropdown-item dropdown-item-active="true">
+                <a href="#">
+                    Another Action
+                </a>
+            </bs-dropdown-item>
+            <bs-dropdown-item dropdown-item-disabled="true">
+                <a href="#">
+                    Yet Another Action
+                </a>
+            </bs-dropdown-item>
+            <bs-dropdown-item dropdown-item-type="header">
+                Dropdown header
+            </bs-dropdown-item>
+            <bs-dropdown-item dropdown-item-active="true" dropdown-item-disabled="true">
+                <a href="#">
+                    Something else
+                </a>
+            </bs-dropdown-item>
+            <bs-dropdown-item dropdown-item-type="divider" />
+            <bs-dropdown-item>
+                <a href="#">
+                    Separated link
+                </a>
+            </bs-dropdown-item>
+        </bs-dropdown>
+        <bs-dropup dropdown-text="Test dropdown">
+            <bs-dropdown-item dropdown-item-type="header">
+                Dropdown header
+            </bs-dropdown-item>
+            <bs-dropdown-item>
+                <a href="#">
+                    Action
+                </a>
+            </bs-dropdown-item>
+            <bs-dropdown-item dropdown-item-active="true">
+                <a href="#">
+                    Another Action
+                </a>
+            </bs-dropdown-item>
+            <bs-dropdown-item dropdown-item-disabled="true">
+                <a href="#">
+                    Yet Another Action
+                </a>
+            </bs-dropdown-item>
+            <bs-dropdown-item dropdown-item-type="header">
+                Dropdown header
+            </bs-dropdown-item>
+            <bs-dropdown-item dropdown-item-active="true" dropdown-item-disabled="true">
+                <a href="#">
+                    Something else
+                </a>
+            </bs-dropdown-item>
+            <bs-dropdown-item dropdown-item-type="divider" />
+            <bs-dropdown-item>
+                <a href="#">
+                    Separated link
+                </a>
+            </bs-dropdown-item>
+        </bs-dropup>
+        <bs-dropdown dropdown-text="Right aligned" class="pull-right" dropdown-right-align="true">
+            <bs-dropdown-item>
+                <a href="#">
+                    I'm right
+                </a>
+            </bs-dropdown-item>
+            <bs-dropdown-item>
+                <a href="#">
+                    I'm also right
+                </a>
+            </bs-dropdown-item>
+        </bs-dropdown>
+    </bs-col-uniform>
 </bs-row>
+
+<bs-modal id="WithOutHeader" modal-animation="false">
+    <bs-modal-body>
+        Hello, world!
+    </bs-modal-body>
+    <bs-modal-footer>
+        <bs-btn bs-output-tag="button" btn-variation="Primary" data-dismiss="modal">
+            Close
+        </bs-btn>
+    </bs-modal-footer>
+</bs-modal>
+<bs-modal id="WithHeader" modal-title="The other one" modal-size="lg">
+    <bs-modal-body>
+        I am the other modal
+    </bs-modal-body>
+</bs-modal>

@@ -1,4 +1,17 @@
-﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+﻿/*
+ * Copyright (c) 2016 Billy Wolfington
+ *
+ * This software may be modified and distributed under the terms
+ * of the MIT license.  See the LICENSE file for details.
+ *
+ * https://github.com/Bwolfing/Bootstrap.AspNetCore.Mvc.TagHelpers
+ *
+ */
+
+using Bootstrap.AspNetCore.Mvc.TagHelpers.Extensions;
+using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +20,7 @@ using System.Threading.Tasks;
 
 namespace Bootstrap.AspNetCore.Mvc.TagHelpers
 {
-    public enum ButtonType
+    public enum ButtonVariation
     {
         Default,
         Primary,
@@ -31,15 +44,15 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
     {
         #region Properties
         #region Public properties
+        public const string REQUIRED_ATTRIBUTE_NAMES = OUTPUT_TAG_ATTRIBUTE_NAME + "," + VARIATION_ATTRIBUTE_NAME;
+        public const string VARIATION_ATTRIBUTE_NAME = "btn-variation";
         public const string TAG = Global.PREFIX + "btn";
-        public const string REQUIRED_ATTRIBUTE_NAMES = OUTPUT_TAG_ATTRIBUTE_NAME + "," + TYPE_ATTRIBUTE_NAME;
-        public const string TYPE_ATTRIBUTE_NAME = "btn-type";
         public const string SIZE_ATTRIBUTE_NAME = "btn-size";
         public const string ACTIVE_ATTRIBUTE_NAME = "btn-active";
         public const string DISABLED_ATTRIBUTE_NAME = "btn-disabled";
 
-        [HtmlAttributeName(TYPE_ATTRIBUTE_NAME)]
-        public ButtonType ButtonType { get; set; }
+        [HtmlAttributeName(VARIATION_ATTRIBUTE_NAME)]
+        public ButtonVariation ButtonVariation { get; set; }
 
         [HtmlAttributeName(SIZE_ATTRIBUTE_NAME)]
         public ButtonSize ButtonSize { get; set; } = ButtonSize.normal;
@@ -54,7 +67,7 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         {
             get
             {
-                StringBuilder cssClass = new StringBuilder($"btn btn-{ButtonType.ToString().ToLower()}");
+                StringBuilder cssClass = new StringBuilder($"btn btn-{ButtonVariation.ToString().ToLower()}");
                 switch (ButtonSize)
                 {
                     case ButtonSize.xs:
@@ -88,13 +101,20 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         #region Public methods
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
-            var content = await output.GetChildContentAsync();
-            output.Content.AppendHtml(content);
-            output.TagName = OutputTag;
-            output.TagMode = TagMode.StartTagAndEndTag;
+            var innerContent = await output.GetChildContentAsync();
             IncludeExtraAttributes(output);
-            AppendDefaultCssClass(output);
+            if (context.Items.ContainsKey(typeof(ButtonGroupContext)))
+            {
+                BuildButton(context, output, innerContent);
+                output.SuppressOutput();
+            }
+            else
+            {
+                await RenderSelf(context, output, innerContent);
+            }
         }
+
+
         #endregion
 
         #region Private methods
@@ -104,10 +124,27 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
             {
                 output.Attributes.SetAttribute("aria-pressed", "true");
             }
-            if (IsDisabled && OutputTag.Trim() == "button")
+            if (IsDisabled && OutputTag.Trim().ToLower() == "button")
             {
                 output.Attributes.SetAttribute("disabled", "disabled");
             }
+        }
+
+        private async Task RenderSelf(TagHelperContext context, TagHelperOutput output, TagHelperContent innerContent)
+        {
+            output.Content.SetHtmlContent(innerContent);
+            output.TagMode = TagMode.StartTagAndEndTag;
+            await base.ProcessAsync(context, output);
+        }
+
+        private void BuildButton(TagHelperContext context, TagHelperOutput output, TagHelperContent innerContent)
+        {
+            TagBuilder button = new TagBuilder(OutputTag);
+            button.AddCssClass(CssClass);
+            button.AddAttributes(output.Attributes);
+            button.InnerHtml.SetHtmlContent(innerContent);
+            ButtonGroupContext btnGroupContext = context.Items[typeof(ButtonGroupContext)] as ButtonGroupContext;
+            btnGroupContext.Buttons.Add(button);
         }
         #endregion
         #endregion
