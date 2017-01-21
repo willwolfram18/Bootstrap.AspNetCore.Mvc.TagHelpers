@@ -39,6 +39,8 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         public const string RIGHT_ALIGN_ATTRIBUTE_NAME = "dropdown-right-align";
         public const string SPLIT_ATTRIBUTE_NAME = "dropdown-split";
         public const string VARIATION_ATTRIBUTE_NAME = "dropdown-btn-variation";
+        public const string BTN_ATTRIBUTE_NAME = "dropdown-is-btn";
+        public const string TOGGLE_OUTPUT_TAG_ATTRIBUTE_NAME = "dropdown-toggle-output-tag";
 
         public override string CssClass
         {
@@ -64,6 +66,12 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
 
         [HtmlAttributeName(VARIATION_ATTRIBUTE_NAME)]
         public ButtonVariation ButtonVariation { get; set; } = ButtonVariation.Default;
+
+        [HtmlAttributeName(BTN_ATTRIBUTE_NAME)]
+        public bool IsButton { get; set; } = true;
+
+        [HtmlAttributeName(TOGGLE_OUTPUT_TAG_ATTRIBUTE_NAME)]
+        public string ToggleOutputTag { get; set; } = "a";
         #endregion
 
         #region Private Properties
@@ -100,13 +108,22 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         #region Private methods
         private void AppendDropdownToggle(IHtmlContentBuilder parentTag)
         {
-            TagBuilder dropdownToggleButton = new TagBuilder("button");
-            dropdownToggleButton.AddCssClass($"btn btn-{ButtonVariation.ToString().ToLower()} dropdown-toggle");
-            dropdownToggleButton.Attributes.Add("type", "button");
+            string outputTag = (IsButton ? "button" : ToggleOutputTag);
+            TagBuilder dropdownToggleButton = new TagBuilder(outputTag);
+            // TODO: Refactor to method SetDropdownToggleCss
+            dropdownToggleButton.AddCssClass("dropdown-toggle");
+            if (IsButton)
+            {
+                dropdownToggleButton.AddCssClass($"btn btn-{ButtonVariation.ToString().ToLower()}");
+                dropdownToggleButton.Attributes.Add("type", "button");
+            }
+            // TODO: Refactor to method SetDropdownToggleAttributes
             dropdownToggleButton.Attributes.Add("data-toggle", "dropdown");
             dropdownToggleButton.Attributes.Add("aria-haspopup", "true");
             dropdownToggleButton.Attributes.Add("aria-expanded", "true");
-            if (IsSplitDropdown)
+
+            // TODO: Refactor to method SetDropdownToggleContent
+            if (IsButton && IsSplitDropdown)
             {
                 TagBuilder textButton = new TagBuilder("button");
                 textButton.AddCssClass($"btn btn-{ButtonVariation.ToString().ToLower()}");
