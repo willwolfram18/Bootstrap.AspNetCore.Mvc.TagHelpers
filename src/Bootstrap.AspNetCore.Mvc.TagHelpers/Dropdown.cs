@@ -37,12 +37,18 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         public const string TAG = Global.PREFIX + "dropdown";
         public const string TEXT_ATTRIBUTE_NAME = "dropdown-text";
         public const string RIGHT_ALIGN_ATTRIBUTE_NAME = "dropdown-right-align";
+        public const string SPLIT_ATTRIBUTE_NAME = "dropdown-split";
 
         public override string CssClass
         {
             get
             {
-                return "dropdown";
+                List<string> cssClasses = new List<string>() { "dropdown" };
+                if (IsSplitDropdown)
+                {
+                    cssClasses.Add("btn-group");
+                }
+                return string.Join(" ", cssClasses);
             }
         }
 
@@ -51,6 +57,9 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
 
         [HtmlAttributeName(RIGHT_ALIGN_ATTRIBUTE_NAME)]
         public bool IsMenuRightAligned { get; set; } = false;
+
+        [HtmlAttributeName(SPLIT_ATTRIBUTE_NAME)]
+        public bool IsSplitDropdown { get; set; } = false;
         #endregion
 
         #region Private Properties
@@ -74,24 +83,39 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
             {
                 output.TagMode = TagMode.StartTagAndEndTag;
                 await base.ProcessAsync(context, output);
-                output.Content.AppendHtml(DropdownToggle());
+                AppendDropdownToggle(output.Content);
                 output.Content.AppendHtml(DropdownMenu());
+                if (IsSplitDropdown)
+                {
+                    output.Attributes.Add("role", "group");
+                }
             }
         }
         #endregion
 
         #region Private methods
-        private IHtmlContent DropdownToggle()
+        private void AppendDropdownToggle(IHtmlContentBuilder parentTag)
         {
-            TagBuilder button = new TagBuilder("button");
-            button.AddCssClass("btn btn-default dropdown-toggle");
-            button.Attributes.Add("type", "button");
-            button.Attributes.Add("data-toggle", "dropdown");
-            button.Attributes.Add("aria-haspopup", "true");
-            button.Attributes.Add("aria-expanded", "true");
-            button.InnerHtml.SetHtmlContent($"{DropdownText} <span class='caret'></span>");
+            TagBuilder dropdownToggleButton = new TagBuilder("button");
+            dropdownToggleButton.AddCssClass("btn btn-default dropdown-toggle");
+            dropdownToggleButton.Attributes.Add("type", "button");
+            dropdownToggleButton.Attributes.Add("data-toggle", "dropdown");
+            dropdownToggleButton.Attributes.Add("aria-haspopup", "true");
+            dropdownToggleButton.Attributes.Add("aria-expanded", "true");
+            if (IsSplitDropdown)
+            {
+                TagBuilder textButton = new TagBuilder("button");
+                textButton.AddCssClass("btn btn-default");
+                textButton.InnerHtml.SetHtmlContent(DropdownText);
+                parentTag.AppendHtml(textButton);
+                dropdownToggleButton.InnerHtml.SetHtmlContent("<span class='caret'></span><span class='sr-only'>Toggle dropdown</span>");
+            }
+            else
+            {
+                dropdownToggleButton.InnerHtml.SetHtmlContent($"{DropdownText} <span class='caret'></span>");
+            }
 
-            return button;
+            parentTag.AppendHtml(dropdownToggleButton);
         }
 
         private IHtmlContent DropdownMenu()
@@ -116,7 +140,7 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
             TagBuilder dropdownContainer = new TagBuilder(OutputTag);
             dropdownContainer.AddAttributes(output.Attributes);
             dropdownContainer.AddCssClass(CssClass);
-            dropdownContainer.InnerHtml.AppendHtml(DropdownToggle());
+            AppendDropdownToggle(dropdownContainer.InnerHtml);
             dropdownContainer.InnerHtml.AppendHtml(DropdownMenu());
             btnGroupContext.Buttons.Add(dropdownContainer);
         }
