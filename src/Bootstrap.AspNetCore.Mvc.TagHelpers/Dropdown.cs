@@ -38,6 +38,7 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         public const string TEXT_ATTRIBUTE_NAME = "dropdown-text";
         public const string RIGHT_ALIGN_ATTRIBUTE_NAME = "dropdown-right-align";
         public const string SPLIT_ATTRIBUTE_NAME = "dropdown-split";
+        public const string VARIATION_ATTRIBUTE_NAME = "dropdown-btn-variation";
 
         public override string CssClass
         {
@@ -60,6 +61,9 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
 
         [HtmlAttributeName(SPLIT_ATTRIBUTE_NAME)]
         public bool IsSplitDropdown { get; set; } = false;
+
+        [HtmlAttributeName(VARIATION_ATTRIBUTE_NAME)]
+        public ButtonVariation ButtonVariation { get; set; } = ButtonVariation.Default;
         #endregion
 
         #region Private Properties
@@ -97,7 +101,7 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         private void AppendDropdownToggle(IHtmlContentBuilder parentTag)
         {
             TagBuilder dropdownToggleButton = new TagBuilder("button");
-            dropdownToggleButton.AddCssClass("btn btn-default dropdown-toggle");
+            dropdownToggleButton.AddCssClass($"btn btn-{ButtonVariation.ToString().ToLower()} dropdown-toggle");
             dropdownToggleButton.Attributes.Add("type", "button");
             dropdownToggleButton.Attributes.Add("data-toggle", "dropdown");
             dropdownToggleButton.Attributes.Add("aria-haspopup", "true");
@@ -105,7 +109,7 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
             if (IsSplitDropdown)
             {
                 TagBuilder textButton = new TagBuilder("button");
-                textButton.AddCssClass("btn btn-default");
+                textButton.AddCssClass($"btn btn-{ButtonVariation.ToString().ToLower()}");
                 textButton.InnerHtml.SetHtmlContent(DropdownText);
                 parentTag.AppendHtml(textButton);
                 dropdownToggleButton.InnerHtml.SetHtmlContent("<span class='caret'></span><span class='sr-only'>Toggle dropdown</span>");
