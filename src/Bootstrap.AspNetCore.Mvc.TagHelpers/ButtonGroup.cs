@@ -79,7 +79,7 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         #region Public methods
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
-            context.Items.Add(_btnGroupContext.GetType(), _btnGroupContext);
+            context.InsertContext(_btnGroupContext);
             var content = await output.GetChildContentAsync();
             await SetupButtonGroup(context, output);
             SetHtmlContent(output);

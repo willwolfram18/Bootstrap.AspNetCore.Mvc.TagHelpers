@@ -95,6 +95,10 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
             }
         }
         #endregion
+
+        #region Private properties
+        private ButtonGroupContext _btnGroupContext;
+        #endregion
         #endregion
 
         #region Methods
@@ -103,9 +107,10 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         {
             var innerContent = await output.GetChildContentAsync();
             IncludeExtraAttributes(output);
-            if (context.Items.ContainsKey(typeof(ButtonGroupContext)))
+            _btnGroupContext = context.GetButtonGroupContext();
+            if (_btnGroupContext != null)
             {
-                BuildButton(context, output, innerContent);
+                BuildButton(output, innerContent);
                 output.SuppressOutput();
             }
             else
@@ -137,14 +142,13 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
             await base.ProcessAsync(context, output);
         }
 
-        private void BuildButton(TagHelperContext context, TagHelperOutput output, TagHelperContent innerContent)
+        private void BuildButton(TagHelperOutput output, TagHelperContent innerContent)
         {
             TagBuilder button = new TagBuilder(OutputTag);
             button.AddCssClass(CssClass);
             button.AddAttributes(output.Attributes);
             button.InnerHtml.SetHtmlContent(innerContent);
-            ButtonGroupContext btnGroupContext = context.Items[typeof(ButtonGroupContext)] as ButtonGroupContext;
-            btnGroupContext.Buttons.Add(button);
+            _btnGroupContext.Buttons.Add(button);
         }
         #endregion
         #endregion

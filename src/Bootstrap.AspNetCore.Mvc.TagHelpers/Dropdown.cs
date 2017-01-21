@@ -62,10 +62,10 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         #region Public Methods
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
-            context.Items.Add(_dropdownContext.GetType(), _dropdownContext);
+            context.InsertContext(_dropdownContext);
             var childContent = await output.GetChildContentAsync();
 
-            if (context.Items.ContainsKey(typeof(ButtonGroupContext)))
+            if (context.GetButtonGroupContext() != null)
             {
                 AddDropdownToButtnGroupContext(context, output);
                 output.SuppressOutput();
@@ -112,7 +112,7 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
 
         private void AddDropdownToButtnGroupContext(TagHelperContext context, TagHelperOutput output)
         {
-            ButtonGroupContext btnGroupContext = context.Items[typeof(ButtonGroupContext)] as ButtonGroupContext;
+            ButtonGroupContext btnGroupContext = context.GetButtonGroupContext();
             TagBuilder dropdownContainer = new TagBuilder(OutputTag);
             dropdownContainer.AddAttributes(output.Attributes);
             dropdownContainer.AddCssClass(CssClass);
@@ -189,7 +189,7 @@ namespace Bootstrap.AspNetCore.Mvc.TagHelpers
         #region Public methods
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
-            DropdownContext dropdownContext = context.Items[typeof(DropdownContext)] as DropdownContext;
+            DropdownContext dropdownContext = context.GetDropdownContext();
 
             _item = new TagBuilder(OutputTag);
             AppendAttributes(output.Attributes);
